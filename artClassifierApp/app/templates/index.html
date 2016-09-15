@@ -84,9 +84,10 @@
     <input type="submit" id="btn" value="Go"/>
   </form>
 
-    <!-- <button onclick="myFunction()">Try it</button> -->
-    <div class="radarChart"></div>
-
+    <div class='imagedisplay' style='height:700px; width:480; float:left;' > 
+        <img src='https://i.redditmedia.com/_BvfD2eFEfAjK57RHyX4WvjTDP067pRst0eIsSvYZ10.jpg?w=578&s=cbae0c7302f4c1ad2c765c82b3cce1c2' border:2px solic white; > 
+    </div>
+    <div class="radarChart" style='position:relative; width: 50%; float:right;'></div>
     <script src="radarChart.js"></script> 
     <script>
       ////////////////////////////////////////////////////////////// 
@@ -102,23 +103,24 @@
       ////////////////////////////////////////////////////////////// 
 
       var data = {{results | safe}};
-      // var data = [
-      //       [//iPhone
-      //       {axis:"Abstract Expressionism",value:0.22},
-      //       {axis:"Baroque",value:0.28},
-      //       {axis:"Constructivism",value:0.29},
-      //       {axis:"Cubism",value:0.17},
-      //       {axis:"Impressionism",value:0.22},
-      //       {axis:"Neoclassical",value:0.3},
-      //       {axis:"Poptart",value:0.21},
-      //       {axis:"Post Impressionism",value:0.50},
-      //       {axis:"Realism",value:0.27},
-      //       {axis:"Renaissance",value:0.16},
-      //       {axis:"Romanticism",value:0.35},
-      //       {axis:"Surrealism",value:0.13},
-      //       {axis:"Symbolism",value:0.20}      
-      //       ]
-      //     ];
+      var static_data = [
+            [//iPhone
+            {axis:"Abstract Expressionism",value:0.22},
+            {axis:"Baroque",value:0.28},
+            {axis:"Constructivism",value:0.29},
+            {axis:"Cubism",value:0.17},
+            {axis:"Impressionism",value:0.22},
+            {axis:"Neoclassical",value:0.3},
+            {axis:"Poptart",value:0.21},
+            {axis:"Post Impressionism",value:0.50},
+            {axis:"Realism",value:0.27},
+            {axis:"Renaissance",value:0.16},
+            {axis:"Romanticism",value:0.35},
+            {axis:"Surrealism",value:0.13},
+            {axis:"Symbolism",value:0.20}      
+            ]
+          ];
+      
       ////////////////////////////////////////////////////////////// 
       //////////////////// Draw the Chart ////////////////////////// 
       ////////////////////////////////////////////////////////////// 
