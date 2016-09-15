@@ -19,8 +19,6 @@
         font-weight: 300;
         fill: #ffffff;
         text-align: center;
-        /*text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;*/
-
         cursor: default;
         background-color: black;
       }
@@ -80,12 +78,14 @@
     <h1><FONT color= '#ffffff'>Artistic Style Classifier</FONT>></h1>
 
   <form method="post">
+
     <input name="image_path" type="text" id="imageurl" placeholder="Enter Image URL" />
     <input type="submit" id="btn" value="Go"/>
   </form>
 
-    <div class='imagedisplay' style='height:700px; width:480; float:left;' > 
-        <img src='https://i.redditmedia.com/_BvfD2eFEfAjK57RHyX4WvjTDP067pRst0eIsSvYZ10.jpg?w=578&s=cbae0c7302f4c1ad2c765c82b3cce1c2' border:2px solic white; > 
+    <div class='imagedisplay' style='height:700px; width:480; float:left; align: center;' > 
+        <img src="{{url_for('static', filename='images/' + image_path)}}" border:2px solic white; > 
+        <label text=>
     </div>
     <div class="radarChart" style='position:relative; width: 50%; float:right;'></div>
     <script src="radarChart.js"></script> 

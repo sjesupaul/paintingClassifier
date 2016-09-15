@@ -18,6 +18,7 @@ def get_image_score(image_path):
         _ = tf.import_graph_def(graph_def, name='')
     results = []
 
+    print(image_path)
     with tf.Session() as sess:
         softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
         with tf.Graph().as_default():
@@ -40,6 +41,7 @@ def get_image_score(image_path):
 # Initialize the app
 app = Flask(__name__)
 
+image_path = 'ethan.jpg'
 # Get an example and return it's score from the predictor model
 @app.route("/", methods=["GET", "POST"])
 def score():
