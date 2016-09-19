@@ -72,7 +72,7 @@
       .styled-select {
          background: #424242;
          color: white;
-         width: 268px;
+         width: 400px;
          padding: 5px;
          font-size: 16px;
          line-height: 1;
@@ -118,24 +118,26 @@
       <input type="submit" id="btn" value="Go"/>
     </form>
 
-    <div id='tablecontainer1'>
-      <div id='tablecontainer2'>
-        <table id='tabledisplay'>
-          <tr>
-            <td>
-              <div class='imagedisplay' style='height:auto; width:50%; float:left; align: center; padding-top: 20px;'> 
-                <img src="{{url_for('static', filename='images/' + image_path)}}" border:2px solid white; > 
-              </div>
-            </td>
-            <td>
-              <div class="radarChart" style='position:relative; width: 100%; float:right;'></div>
-                <script src="radarChart.js"></script> 
-            </td>
-          </tr>
-        </table>
+    {% if image_path%}
+      <div id='tablecontainer1'>
+        <div id='tablecontainer2'>
+          <table id='tabledisplay'>
+            <tr>
+              <td>
+                <div class='imagedisplay' style='height:auto; width:50%; float:left; align: center; padding-top: 20px;'> 
+                  <img src="{{url_for('static', filename='images/' + image_path)}}" border:2px solid white; > 
+                </div>
+              </td>
+              <td>
+                <div class="radarChart" style='position:relative; width: 100%; float:right;'></div>
+                  <script src="radarChart.js"></script> 
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
-    </div>
     <script>
+    {% endif %}
       ////////////////////////////////////////////////////////////// 
       //////////////////////// Set-Up ////////////////////////////// 
       ////////////////////////////////////////////////////////////// 
@@ -151,19 +153,19 @@
       var data = {{results | safe}};
       var sample_data = [
             [
-            {axis:"Abstract Expressionism",value:0.22},
-            {axis:"Baroque",value:0.28},
-            {axis:"Constructivism",value:0.29},
-            {axis:"Cubism",value:0.17},
-            {axis:"Impressionism",value:0.22},
-            {axis:"Neoclassical",value:0.3},
-            {axis:"Poptart",value:0.21},
-            {axis:"Post Impressionism",value:0.50},
-            {axis:"Realism",value:0.27},
-            {axis:"Renaissance",value:0.16},
-            {axis:"Romanticism",value:0.35},
-            {axis:"Surrealism",value:0.13},
-            {axis:"Symbolism",value:0.20}      
+              {axis:"Abstract Expressionism",value:0.22},
+              {axis:"Baroque",value:0.28},
+              {axis:"Constructivism",value:0.29},
+              {axis:"Cubism",value:0.17},
+              {axis:"Impressionism",value:0.22},
+              {axis:"Neoclassical",value:0.3},
+              {axis:"Poptart",value:0.21},
+              {axis:"Post Impressionism",value:0.50},
+              {axis:"Realism",value:0.27},
+              {axis:"Renaissance",value:0.16},
+              {axis:"Romanticism",value:0.35},
+              {axis:"Surrealism",value:0.13},
+              {axis:"Symbolism",value:0.20}      
             ]
           ];
       

@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+# Working Files - not ready to be shared
+local/
+local*
+*local*
+
 # Distribution / packaging
 .Python
 env/
