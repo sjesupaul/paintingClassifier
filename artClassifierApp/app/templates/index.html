@@ -2,16 +2,37 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
-    <title>Art Classifier Radar Chart</title>
+    <title>Saniya Jesupaul ~ Painting Classifier</title>
 
     <!-- Google fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
+    <!-- Skeleton CSS Boilerplate -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
+
     <!-- D3.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='radarchart.js') }}"></script>
     
+    <!-- Plotly -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+    $(document).ready(function(){
+        $(".barbutton").click(function(){
+            $("#barChart").fadeIn()
+        });
+        $(".radarbutton").click(function(){
+            $("#barChart").fadeOut();
+        });
+    });
+    </script>
+
     <style>
       body {
         font-family: 'Open Sans', sans-serif;
@@ -50,20 +71,27 @@
         border-radius: 5px;
         padding-left: 7px;
         padding-right:7px;
+
       }
 
-      input[type=button], input[type=submit], input[type=reset] {
+      ::-webkit-input-placeholder {
+        color:    #fff;
+      } 
+      
+      button[type=button], input[type=submit], input[type=reset] {
         background-color: #000000;/*A4A4A4;*/
         border: 1px solid #ffffff;
         color: white;
-        font-size: 16px;
-        height:30px;
-        width:50px;
-        position:relative;
-        /*padding: 10px 20px;*/
+        font-size: 30px;
+        height:50px;
+        width:30px;
+        /*position:relative;
+        padding: 10px 20px;*/
         text-decoration: none;
-        margin: 4px 2px;
+        margin: 4px 2px;  
         cursor: pointer;
+        text-align: center;
+
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         border-radius: 5px;
@@ -74,11 +102,11 @@
          color: white;
          width: 400px;
          padding: 5px;
-         font-size: 16px;
-         line-height: 1;
+         font-family: 'Raleway', sans-serif;
+         font-size: 14px;
          border: 0;
          border-radius: 0;
-         height: 34px;
+
          -webkit-border-radius: 5px;
          -moz-border-radius: 5px;
       }
@@ -88,36 +116,76 @@
         width: 100%;
         display: table;
       }
+
       #tablecontainer2 {
         vertical-align: middle;
         display: table-cell;
         height: 100%;
       }
+
       #tabledisplay {
         margin: 0 auto;
       }
+
+      .u-full-width {
+        width: 70%;
+        vertical-align: middle;
+        /*box-sizing: border-box; */
+
+        }
+
+
     </style>
   
   </head>
   <body>
-
-    <h1><FONT color= '#ffffff'>Artistic Style Classifier</FONT>></h1>
-
+  <div id="header" style="background-color:##1b1c1c; padding:0;">
     <a href="https://github.com/sjesupaul/paintingClassifier"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6286ade715e9bea433b4705870de482a654f78a/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png"></a>
+
+    <h5><FONT color= '#ffffff'>ARTISTIC STYLE CLASSIFIER</FONT></h5>
+
     
-    <form method="post">
-      <select name="image_path" type="text" id="imageurl" placeholder="Enter Image URL" class="styled-select"/>
-        <option value="" selected disabled>Please select an image</option>
+    <form method="post" style="margin-bottom:0;">
+<!--       <input name="image_path" type="text" placeholder="Please enter image URL"> 
+      </br>
+      <FONT color='#fff';>Or...</FONT>
+      </br></br> -->
+      <select name="image_path" type="text" id="imageurl" class="styled-select"/>
+        <option value="" selected disabled>Select an image</option>
         <option value='georgia-okeefe.jpg'>Cow's Skull with Calico Roses [Georgia O'Keeffe]</option>
         <option value='Jacques-Louis-David-Napoleon.jpg'> Napoleon I [Jacques-Louis David]</option>
         <option value='renoir-sleeping-cat.jpg'>Sleeping Cat [Pierre Auguste Renoir]</option>
         <option value='ethan.jpg'>Ethan Klein [/u/DX-SUCK-IT's dad]</option>
-        <option value='piet-mondrian.jpg'>Composition with Red, Yellow and Blue [Piet Mondrian]</option>
+        <option value='piet-mondrian.jpg'>Composition  with Red, Yellow and Blue [Piet Mondrian]</option>
         <option value='lucio-fontana.jpg'>Concetto Spaziale [Lucio Fontana]</option>
+        <option value="Mark_Rothko.jpg">No. 61 (Rust & Blue) [Mark Rothko]</option>
       </select>
-      <input type="submit" id="btn" value="Go"/>
+      <button type="submit" value="Go" id="btn" style="color:#fff">GO</button>
     </form>
 
+      <button class="barbutton" style="color:#d3d3d3">Bar Chart</button>
+      <button class="radarbutton" style="color:#d3d3d3">Radar Graph</button>
+<!--       <input type="radio" name="radios" id="regularRadio" value="barchart" />
+      <FONT color='#fff';>Bar Chart</FONT>
+      <input type="radio" name="radios" id="regularRadio" value="radargraph" onclick="" />
+      <FONT color='#fff';>Radar Graph</FONT> -->
+      <!-- <input type="submit" id="btn" value="Go"/> -->
+
+  </div>
+    {% if image_path%}
+      <div class="row">
+        <div class="six columns">
+          <div class='imagedisplay' style='align: center; padding-top: 20px;''> 
+            <img src="{{url_for('static', filename='images/' + image_path)}}" style='width:100%;' /> 
+          </div>
+        </div>
+        <div class="six columns">
+          <div class="radarChart" style='position:absolute; max-height:700px; max-width: 100%; float:right;'></div>
+          <div id="barChart" style="width: 700px; height: 700px; position: absolute; background-color:black;"></div>
+        </div>
+      </div>
+    {% endif %}
+<!-- 
     {% if image_path%}
       <div id='tablecontainer1'>
         <div id='tablecontainer2'>
@@ -130,14 +198,148 @@
               </td>
               <td>
                 <div class="radarChart" style='position:relative; width: 100%; float:right;'></div>
-                  <script src="radarChart.js"></script> 
               </td>
             </tr>
           </table>
         </div>
       </div>
+    {% endif %} -->
+    <div class='eight columns offset-by-two'>
+      <table id="tabledisplay">
+        <thead style="color:white; font-size: 14px;">
+          <tr>
+            <th style="weight:400">Style</th>
+            <th>Description</th>
+            <th width="20%">Artists</th>
+          </tr>
+        </thead>
+        <tbody style="color: white;">
+          <tr>
+            <td><b>Abstract Expressionism</b></td>
+            <td>A post–World War II art movement in American painting, developed in New York in the 1940s. It was the first specifically American movement to achieve international influence and put New York City at the center of the western art world, a role formerly filled by Paris.</td>
+            <td>
+              Jackson Pollock,
+              </br>Mark Rothko,
+              </br>Willem De Kooning
+            </td>
+          </tr>
+          <tr>
+            <td><b>Baroque</b></td>
+            <td>A period of artistic style that used exaggerated motion and clear, easily interpreted detail to produce drama, tension, exuberance, and grandeur in sculpture, painting, architecture, literature, dance, theater, and music. The style began around 1600 in Rome and Italy, and spread to most of Europe.</td>
+            <td>
+              Caravaggio,
+              </br>Diego Velazquez,
+              </br>Jan Vermeer,
+              </br>Nicolas Poussin,
+              </br>Peter Paul Reubens,
+              </br>Rembrandt van Rijn
+            </td>
+          </tr>
+          <tr>
+            <td><b>Constructivism</b></td>
+            <td>A style or movement in which assorted mechanical objects are combined into abstract mobile structural forms. The movement originated in Russia in the 1920s and has influenced many aspects of modern architecture and design.</td>
+            <td>
+              El Lissitzky,
+              </br>Kazimir Malevich,
+              </br>Wassily Kandinksky
+            </td>
+          </tr>
+          <tr>
+            <td><b>Cubism</b></td>
+            <td>An early-20th-century avant-garde art movement that revolutionized European painting and sculpture, and inspired related movements in music, literature and architecture. Cubism has been considered the most influential art movement of the 20th century.</td>
+            <td>
+              Fernand Leger,
+              </br>Georges Braque,
+              </br>Picasso,
+              </br>Piet Mondrian
+            </td>
+          </tr>
+          <tr>
+            <td><b>Impressionism</b></td>
+            <td>A style in which the artist captures the image of an object as someone would see it if they just caught a glimpse of it. They paint the pictures with a lot of color and most of their pictures are outdoor scenes. Their pictures are very bright and vibrant.</td>
+            <td>
+              Claude Monet,
+              </br>Edgar Degas,
+              </br>Pierre Auguste Renoir
+            </td>
+          </tr>
+          <tr>
+            <td><b>Neoclassical</b></td>
+            <td>A severe and unemotional form of art harkening back to the grandeur of ancient Greece and Rome. Its rigidity was a reaction to the overbred Rococo style and the emotional charged Baroque style. The rise of Neoclassical Art was part of a general revival of interest in classical thought, which was of some importance in the American and French revolutions.</td>
+            <td>
+              Jacques-Louis David,
+              </br>Jean-Auguste-Dominique Ingres
+            </td>
+          </tr>
+          <tr>
+            <td><b>Pop Art</b></td>
+            <td>A style of art which explores the everyday imagery that is so much a part of contemporary consumer culture. Common sources of imagery include advertisements, consumer product packaging, celebrity photographs, and comic strips.</td>
+            <td>
+              Andy Warhol,
+              </br>David Hockney,
+              </br>Roy Lichtenstein
+            </td>
+          </tr>
+          <tr>
+            <td><b>Post Impressionism</b></td>
+            <td>An umbrella term that encompasses a variety of artists who were influenced by Impressionism but took their art in other directions. There is no single well-defined style of Post-Impressionism, but in general it is less idyllic and more emotionally charged than Impressionist work.</td>
+            <td>
+              Amedeo Modgliani,
+              </br>Georges Seurat,
+              </br>Paul Cezanne,
+              </br>Paul Gauguin,
+              </br>Vincent Van Gogh
+            </td>
+          </tr>
+          <tr>
+            <td><b>Realism</b></td>
+            <td>An approach to art in which subjects are depicted in as straightforward a manner as possible, without idealizing them and without following rules of formal artistic theory.</td>
+            <td>
+              Camille Corot,
+              </br>Gaustave Courbet,
+              </br>James McNeil Whistler,
+              </br>Jean Francois Millet
+            </td>
+          </tr>
+          <tr>
+            <td><b>Renaissance</b></td>
+            <td>A period of great creative and intellectual activity, during which artists broke away from the restrictions of Byzantine Art. Throughout the 15th century, artists studied the natural world in order to perfect their understanding of such subjects as anatomy and perspective.</td>
+            <td>
+              Raphael,
+              </br>Sandro Botticelli,
+              </br>Titian
+            </td>
+          </tr>
+          <tr>
+            <td><b>Romanticism</b></td>
+            <td>A reaction against Neoclassicism, it is a deeply-felt style which is individualistic, exotic, beautiful and emotionally wrought. Although Romanticism and Neoclassicism were philosophically opposed, they were the dominant European styles for generations, and many artists were affected to a lesser or greater degree by both. </td>
+            <td>Caspar David Freidrich,
+            </br>Eugene Delacroix,
+            </br>Francisco De Goya</td>
+          </tr>
+          <tr>
+            <td><b>Surrealism</b></td>
+            <td>A style in which fantastical visual imagery from the subconscious mind is used with no intention of making the work logically comprehensible. It was similar in some elements to the mystical 19th-century Symbolist movement, but was deeply influenced by the psychoanalytic work of Freud and Jung.</td>
+            <td>Georgia Okeeffe,
+            </br>Joan Miro,
+            </br>Max Ernst,
+            </br>Rene Magritte,
+            </br>Salvador Dali</td>
+          </tr>
+          <tr>
+            <td><b>Symbolism</b></td>
+            <td>A 19th-century movement in which art became infused with exaggerated sensitivity and a spooky mysticism. It was a continuation of the Romantic tradition, which included such artists as John Henry Fuseli and Caspar David Friedrich.</td>
+            <td>Gustav Klimt,
+            </br>Gustave Moreau</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
+    <script src="radarChart.js"></script> 
     <script>
-    {% endif %}
       ////////////////////////////////////////////////////////////// 
       //////////////////////// Set-Up ////////////////////////////// 
       ////////////////////////////////////////////////////////////// 
@@ -170,7 +372,7 @@
           ];
       
       ////////////////////////////////////////////////////////////// 
-      //////////////////// Draw the Chart ////////////////////////// 
+      //////////////////// Draw the Radar Chart ////////////////////
       ////////////////////////////////////////////////////////////// 
 
       var color = d3.scale.ordinal()
@@ -187,6 +389,44 @@
       };
       //Call function to draw the Radar chart
       RadarChart(".radarChart", data, radarChartOptions);
+      
+
+      ////////////////////////////////////////////////////////////// 
+      //////////////////// Draw the Bar Chart ////////////////////// 
+      ////////////////////////////////////////////////////////////// 
+
+      var xvalues = new Array();
+      var yvalues = new Array();
+      for (i = 0; i < data[0].length; i++){
+        xvalues.push(data[0][i]["axis"])
+        yvalues.push((data[0][i]["value"].toFixed(2)*100))
+      }
+      var bar_data = [{
+          type: 'bar',
+          x: yvalues,//[20, 14, 23],
+          y: xvalues,//['giraffes', 'orangutans', 'monkeys'],
+          orientation: 'h',
+            marker: {         // marker is an object, valid marker keys: #scatter-marker
+            color: 'rgba(0, 160, 176, 0.35)' // more about "marker.color": #scatter-marker-color
+        }
+        }];
+      var layout = {
+          paper_bgcolor:"#000",
+          plot_bgcolor:"rgba(205, 205, 205, 0.75)",
+          xaxis:{
+            title:"Score ", 
+            color: "#fff",
+            ticksuffix:"%",
+            size:12
+          },
+          yaxis:{
+            color: "#fff"
+          },
+          margin:{
+            l:150
+          }
+      };
+      Plotly.newPlot('barChart', bar_data, layout);
     </script>
   </body>
 </html>

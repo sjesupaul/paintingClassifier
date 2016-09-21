@@ -183,7 +183,7 @@ function RadarChart(id, data, options) {
 		.style("stroke-width", cfg.strokeWidth + "px")
 		.style("stroke", function(d,i) { return cfg.color(i); })
 		.style("fill", "none")
-		.style("filter" , "url(#glow)");		
+		.style("filter" , "url(#glow)");
 	
 	//Append the circles
 	blobWrapper.selectAll(".radarCircle")
